@@ -16,6 +16,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const flash         = require("connect-flash")
 
 const User          = require('./models/userModel');
+const cors = require('cors');
 
 mongoose
   .connect('mongodb://localhost/phewnominal', {useNewUrlParser: true})
@@ -100,6 +101,11 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use(cors({
+  credentials: true,
+  origin: ['http://localhost:3000']
+}));
+
 const index = require('./routes/index');
 app.use('/', index);
 
@@ -111,7 +117,5 @@ app.use('/api', restaurants);
 
 const reviews = require('./routes/reviewRoutes');
 app.use('/api', reviews);
-
-
 
 module.exports = app;
