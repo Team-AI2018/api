@@ -110,7 +110,7 @@ const index = require('./routes/index');
 app.use('/', index);
 
 const user = require('./routes/userRoutes');
-app.use('/', user);
+app.use('/api', user);
 
 const restaurants = require('./routes/restaurantRoutes');
 app.use('/api', restaurants);

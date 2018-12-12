@@ -27,6 +27,7 @@ router.post('/restaurants/add-new', (req, res, next) => {
     name: req.body.name,
     description: req.body.description,
     foodType: req.body.foodType,
+    location: req.dody.location,
     owner: req.user._id
       })
       .then((response) => {
@@ -42,6 +43,7 @@ router.post('/restaurants/edit/:id', (req, res, next) => {
           name: req.body.name,
           description: req.body.description,
           foodType: req.body.foodType,
+          location: req.dody.location,
       })
       .then((response) => {
           if (response === null) {

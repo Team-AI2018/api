@@ -4,12 +4,11 @@ const Schema   = mongoose.Schema;
 
 const restaurantSchema = new Schema({
     name: String,
-    location: [],
+    location: String,
     description: String,
     foodType: String,
     avgPrice: String,
     rating: String,
-    howManyLocations: String,
     reviews: [{type: Schema.Types.ObjectId, ref: 'Review'}],
     owner: {type: Schema.Types.ObjectId, ref: 'User'}
   });
