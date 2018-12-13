@@ -28,7 +28,11 @@ router.post('/restaurants/add-new', (req, res, next) => {
     description: req.body.description,
     foodType: req.body.foodType,
     location: req.dody.location,
+    avgPrice: req.body.avgPrice,
+    rating: req.body.rating,
+    review: req.review._id,
     owner: req.user._id
+
       })
       .then((response) => {
           res.json(response);
@@ -40,10 +44,12 @@ router.post('/restaurants/add-new', (req, res, next) => {
 
 router.post('/restaurants/edit/:id', (req, res, next) => {
   Restaurant.findByIdAndUpdate(req.params.id, {
-          name: req.body.name,
-          description: req.body.description,
-          foodType: req.body.foodType,
-          location: req.dody.location,
+    name: req.body.name,
+    description: req.body.description,
+    foodType: req.body.foodType,
+    location: req.dody.location,
+    avgPrice: req.body.avgPrice,
+    rating: req.body.rating,
       })
       .then((response) => {
           if (response === null) {
