@@ -13,11 +13,14 @@ router.get('/restaurants', (req, res, next) => {
 });
 
 router.get('/restaurants/details/:id', (req, res, next) => {
+    console.log('details', req.params)
   Restaurant.findById(req.params.id)
       .then((theRestaurant) => {
+          console.log(theRestaurant)
           res.json(theRestaurant);
       })
       .catch((err) => {
+          //console.log(err)
           res.json(err);
       })
 })
@@ -27,10 +30,9 @@ router.post('/restaurants/add-new', (req, res, next) => {
     name: req.body.name,
     description: req.body.description,
     foodType: req.body.foodType,
-    location: req.dody.location,
+     location: req.body.location,
     avgPrice: req.body.avgPrice,
     rating: req.body.rating,
-    review: req.review._id,
     owner: req.user._id
 
       })
@@ -47,7 +49,7 @@ router.post('/restaurants/edit/:id', (req, res, next) => {
     name: req.body.name,
     description: req.body.description,
     foodType: req.body.foodType,
-    location: req.dody.location,
+    location: req.body.location,
     avgPrice: req.body.avgPrice,
     rating: req.body.rating,
       })
