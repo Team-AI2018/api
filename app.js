@@ -20,8 +20,7 @@ const cors = require('cors');
 
 mongoose
   //.connect('mongodb://localhost/phewnominal', {useNewUrlParser: true})
-
-  .connect('mongodb://isiah361:isiah361@ds123728.mlab.com:23728/apiproj',  {useNewUrlParser: true})
+  .connect('mongodb://isaiah361:isaiah361@ds123728.mlab.com:23728/apiproj')
 
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
@@ -106,7 +105,8 @@ app.use(function(req, res, next) {
 
 app.use(cors({
   credentials: true,
-  origin: ['http://localhost:3000']
+  //origin: ['http://localhost:3000']
+  origin: ['http://172.16.0.51:3000/']
 }));
 
 const index = require('./routes/index');
