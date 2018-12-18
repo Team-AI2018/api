@@ -106,7 +106,7 @@ app.use(function(req, res, next) {
 app.use(cors({
   credentials: true,
   //origin: ['http://localhost:3000']
-  origin: ['http://172.16.0.51:3000/']
+  origin: ['http://172.16.0.51:3000']
 }));
 
 const index = require('./routes/index');
