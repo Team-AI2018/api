@@ -13,10 +13,10 @@ router.get('/restaurants', (req, res, next) => {
 });
 
 router.get('/restaurants/details/:id', (req, res, next) => {
-    console.log('details', req.params)
+    // console.log('details', req.params)
   Restaurant.findById(req.params.id)
       .then((theRestaurant) => {
-          console.log(theRestaurant)
+        //   console.log(theRestaurant)
           res.json(theRestaurant);
       })
       .catch((err) => {
@@ -72,6 +72,14 @@ router.post('/restaurants/edit/:id', (req, res, next) => {
 })
 
 router.post('/restaurants/delete/:id', (req, res, next) => {
+    console.log(req.user, req.body) //to look at logged in user
+    //the owner of this id 
+    if(req.user._id != req.body.owner){
+        return res.json({
+            message: 'your not the owner'
+        })
+    }
+
   Restaurant.findByIdAndRemove(req.params.id)
       .then((deletedRestaurant) => {
           if (deletedRestaurant === null) {
