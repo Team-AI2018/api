@@ -8,6 +8,7 @@ const passport = require('passport');
 
 
 router.post('/signup', (req, res, next) => {
+    console.log('signup', req.body)
     const username = req.body.username;
     const password = req.body.password;
     User.findOne({ username }, (err, foundUser) => {
@@ -48,6 +49,7 @@ router.post('/signup', (req, res, next) => {
 });
 
     router.post('/login', (req, res, next) => {
+        console.log('login', req.body)
         passport.authenticate('local', (err, theUser, failureDetails) => {
             if (err) {
                 res.json({ message: 'Something went wrong authenticating user' });
@@ -62,6 +64,7 @@ router.post('/signup', (req, res, next) => {
                     res.json({ message: 'Session save went bad.' });
                     return;
                 }
+                console.log(theUser)
                 res.json(theUser);
             });
         })(req, res, next);
