@@ -9,7 +9,7 @@ const restaurantSchema = new Schema({
     foodType: String,
     avgPrice: Number,
     rating: Number,
-    reviews: [{type: Schema.Types.ObjectId, ref: 'Review'}],
+    //reviews: [{type: Schema.Types.ObjectId, ref: 'Review'}],
     owner: {type: Schema.Types.ObjectId, ref: 'User'}
   });
 

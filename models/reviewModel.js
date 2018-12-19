@@ -5,7 +5,8 @@ const Schema   = mongoose.Schema;
 const reviewsSchema = new Schema({
     author: String,
     review: String,
-    rating: Number
+    rating: Number,
+    restId: String,
     
   });
 

@@ -1,6 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 const Restaurant    = require('../models/restaurantModel');
+const Reviews    = require('../models/reviewModel');
 
 router.get('/restaurants', (req, res, next) => {
   Restaurant.find()
@@ -14,15 +15,24 @@ router.get('/restaurants', (req, res, next) => {
 
 router.get('/restaurants/details/:id', (req, res, next) => {
     // console.log('details', req.params)
-  Restaurant.findById(req.params.id)
-      .then((theRestaurant) => {
-        //   console.log(theRestaurant)
-          res.json(theRestaurant);
-      })
-      .catch((err) => {
-          //console.log(err)
-          res.json(err);
-      })
+    Reviews.find({restId: req.params.id}).then((reviews)=>{
+
+        Restaurant.findById(req.params.id)
+        .then((theRestaurant) => {
+          //   console.log(theRestaurant)
+            //theRestaurant.reviews = reviews;
+            let obj = {
+                theRestaurant: theRestaurant,
+                reviews: reviews
+            }
+            res.json(obj);
+        })
+        .catch((err) => {
+            //console.log(err)
+            res.json(err);
+        })
+    })
+
 })
 
 router.post('/restaurants/add-new', (req, res, next) => {
