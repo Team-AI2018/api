@@ -11,13 +11,18 @@ router.get('/restaurants/:id/addReview', (req, res, next)=>{
 })
 
 router.post('/restaurants/:id/addReview', (req, res, next)=>{
+  console.log('i hit this crap', req.params, req.body, req.user)
   Reviews.create({
     author: req.user.username,
     rating: req.body.rating,
-    review: req.body.review
+    review: req.body.review,
+    restId: req.params.id
   })
   .then(createdReview => {
-    Restaurant.findById(req.params.id) 
+
+    console.log('in here', createdReview)
+    res.json(createdReview)
+    /*Restaurant.findById(req.params.id) 
       .then(restaurantFromDB => {
         restaurantFromDB.reviews.push(createdReview._id)
         restaurantFromDB.save()
@@ -30,7 +35,7 @@ router.post('/restaurants/:id/addReview', (req, res, next)=>{
       })
       .catch(err => {
         next(err);
-      })
+      })*/
   }).catch(err => {
     next(err);
   })
