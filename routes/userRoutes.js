@@ -54,6 +54,7 @@ router.post('/signup', (req, res, next) => {
                 return;
             }
             if (!theUser) {
+                console.log("did not log in HAHAHAAHAHAHA!");
                 res.json(failureDetails);
                 return;
             }
