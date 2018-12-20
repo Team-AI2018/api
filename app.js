@@ -19,8 +19,8 @@ const User          = require('./models/userModel');
 const cors = require('cors');
 
 mongoose
-  //.connect('mongodb://localhost/phewnominal', {useNewUrlParser: true})
-  .connect('mongodb://isaiah361:isaiah361@ds123728.mlab.com:23728/apiproj')
+  .connect('mongodb://localhost/phewnominal', {useNewUrlParser: true})
+  // .connect('mongodb://isaiah361:isaiah361@ds123728.mlab.com:23728/apiproj')
 
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)

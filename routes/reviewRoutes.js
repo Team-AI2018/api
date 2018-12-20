@@ -3,6 +3,29 @@ const router  = express.Router();
 const Restaurant    = require('../models/restaurantModel');
 const Reviews = require("../models/reviewModel");
 
+
+router.get('/restaurants/:id/reviewDetails', (req, res, next)=>{
+  Reviews.findById(req.params.id)
+      .then((theReviews) => {
+        console.log("*****************************", theReviews);
+          res.json(theReviews)
+      })
+      .catch((err) => {
+          res.json(err);
+      })
+})
+
+router.post('/restaurants/:id/reviewDetails', (req, res, next)=>{
+  Reviews.findByIdAndUpdate(req.params.id, req.body)
+      .then((theReviews) => {
+        console.log("*****************************", theReviews);
+          res.json(theReviews)
+      })
+      .catch((err) => {
+          res.json(err);
+      })
+})
+
 router.get('/restaurants/:id/addReview', (req, res, next)=>{
   Restaurant.findById(req.params.id)
   .then((theRestaurant)=>{
