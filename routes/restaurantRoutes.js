@@ -41,13 +41,25 @@ router.get('/restaurants', (req, res, next) => {
 
 
 router.get('/restaurants/details/:id', (req, res, next) => {
-  Restaurant.findById(req.params.id)
-      .then((theRestaurant) => {
-          res.json(theRestaurant);
-      })
-      .catch((err) => {
-          res.json(err);
-      })
+    // console.log('details', req.params)
+    Reviews.find({restId: req.params.id}).then((reviews)=>{
+
+        Restaurant.findById(req.params.id)
+        .then((theRestaurant) => {
+          //   console.log(theRestaurant)
+            //theRestaurant.reviews = reviews;
+            let obj = {
+                theRestaurant: theRestaurant,
+                reviews: reviews
+            }
+            res.json(obj);
+        })
+        .catch((err) => {
+            //console.log(err)
+            res.json(err);
+        })
+    })
+
 })
 
 router.post('/restaurants/add-new', (req, res, next) => {
@@ -55,8 +67,11 @@ router.post('/restaurants/add-new', (req, res, next) => {
     name: req.body.name,
     description: req.body.description,
     foodType: req.body.foodType,
-    location: req.body.location,
+     location: req.body.location,
+    avgPrice: req.body.avgPrice,
+    rating: req.body.rating,
     owner: req.user._id
+
       })
       .then((response) => {
           res.json(response);
@@ -68,10 +83,12 @@ router.post('/restaurants/add-new', (req, res, next) => {
 
 router.post('/restaurants/edit/:id', (req, res, next) => {
   Restaurant.findByIdAndUpdate(req.params.id, {
-          name: req.body.name,
-          description: req.body.description,
-          foodType: req.body.foodType,
-          location: req.dody.location,
+    name: req.body.name,
+    description: req.body.description,
+    foodType: req.body.foodType,
+    location: req.body.location,
+    avgPrice: req.body.avgPrice,
+    rating: req.body.rating,
       })
       .then((response) => {
           if (response === null) {
@@ -92,6 +109,14 @@ router.post('/restaurants/edit/:id', (req, res, next) => {
 })
 
 router.post('/restaurants/delete/:id', (req, res, next) => {
+    console.log(req.user, req.body) //to look at logged in user
+    //the owner of this id 
+    if(req.user._id != req.body.owner){
+        return res.json({
+            message: 'your not the owner'
+        })
+    }
+
   Restaurant.findByIdAndRemove(req.params.id)
       .then((deletedRestaurant) => {
           if (deletedRestaurant === null) {

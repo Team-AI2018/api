@@ -7,9 +7,11 @@ const restaurantSchema = new Schema({
     location: String,
     description: String,
     foodType: String,
-    avgPrice: String,
-    rating: String,
-    reviews: [{type: Schema.Types.ObjectId, ref: 'Review'}],
+    avgPrice: Number,
+    rating: Number,
+    phone: String,
+    img: String,
+    //reviews: [{type: Schema.Types.ObjectId, ref: 'Review'}],
     owner: {type: Schema.Types.ObjectId, ref: 'User'}
   });
 
