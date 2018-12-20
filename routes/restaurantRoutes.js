@@ -16,7 +16,8 @@ router.get('/restaurants', (req, res, next) => {
 
         client.search({
             term:req.query.q, //make these variables 
-            location: 'miami fl' //this one too zip code? 
+            location: req.query.location || 'miami fl' //this one too zip code? 
+
           }).then(response => {
 
             let obj = {
