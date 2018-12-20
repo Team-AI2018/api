@@ -1,17 +1,44 @@
 const express = require('express');
 const router  = express.Router();
 const Restaurant    = require('../models/restaurantModel');
-const Reviews    = require('../models/reviewModel');
+const yelp = require('yelp-fusion');
+const apiKey = "p9DUdMWqeE_Kt6rgKTr-937X5EjLB24wNr0FO9QgCd2WwwUVhZcCClTjCjdrg65U2skbdoadwKNZ7xK8zVSmJbSEH6L7XgdDH3HeAE6LVlBvN3Uwhwtg_S7tDVYZXHYx"
+const client = yelp.client(apiKey);
+ 
+
 
 router.get('/restaurants', (req, res, next) => {
+
+    console.log(req.query)
+
   Restaurant.find()
       .then((allTheRestaurants) => {
-          res.json(allTheRestaurants)
+
+        client.search({
+            term:req.query.q, //make these variables 
+            location: req.query.location || 'miami fl' //this one too zip code? 
+
+          }).then(response => {
+
+            let obj = {
+                allTheRestaurants:allTheRestaurants,
+                yelp:response.jsonBody
+            }
+            console.log(obj)
+            //res.json(allTheRestaurants)
+            res.json({obj:obj})
+
+          }).catch(e => {
+            console.log(e);
+          });
+          
       })
       .catch((err) => {
           res.json(err);
       })
 });
+
+
 
 router.get('/restaurants/details/:id', (req, res, next) => {
     // console.log('details', req.params)
