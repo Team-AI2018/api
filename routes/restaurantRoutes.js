@@ -1,9 +1,9 @@
 const express = require('express');
 const router  = express.Router();
 const Restaurant    = require('../models/restaurantModel');
-// const yelp = require('yelp-fusion');
+const yelp = require('yelp-fusion');
 const apiKey = "p9DUdMWqeE_Kt6rgKTr-937X5EjLB24wNr0FO9QgCd2WwwUVhZcCClTjCjdrg65U2skbdoadwKNZ7xK8zVSmJbSEH6L7XgdDH3HeAE6LVlBvN3Uwhwtg_S7tDVYZXHYx"
-// const client = yelp.client(apiKey);
+const client = yelp.client(apiKey);
 const Reviews    = require('../models/reviewModel');
 
 
@@ -14,23 +14,23 @@ router.get('/restaurants', (req, res, next) => {
   Restaurant.find()
       .then((allTheRestaurants) => {
 
-          res.json(allTheRestaurants)
-        // client.search({
-        //     term:req.query.q, //make these variables 
-        //     location: req.query.location || 'miami fl' //this one too zip code? 
+        client.search({
+            term:req.query.q, //make these variables 
+            location: req.query.location || 'miami fl' //this one too zip code? 
 
-        //   }).then(response => {
+          }).then(response => {
 
-        //     // let obj = {
-        //     //     allTheRestaurants: allTheRestaurants,
-        //     //     yelp:response.jsonBody
-        //     // }
-        //     console.log(obj)
-        //     // res.json({obj:obj})
+            let obj = {
+                allTheRestaurants:allTheRestaurants,
+                yelp:response.jsonBody
+            }
+            console.log(obj)
+            //res.json(allTheRestaurants)
+            res.json({obj:obj})
 
-        //   }).catch(e => {
-        //     console.log(e);
-        //   });
+          }).catch(e => {
+            console.log(e);
+          });
           
       })
       .catch((err) => {
@@ -119,7 +119,7 @@ router.post('/restaurants/delete/:id', (req, res, next) => {
                 })
             }
 
-console.log('cnjshdcjsdjcbjsbjccnjshdcjsdjcbjsbjccnjshdcjsdjcbjsbjccn',req.user._id, theRestaurant.owner)
+// console.log('cnjshdcjsdjcbjsbjccnjshdcjsdjcbjsbjccnjshdcjsdjcbjsbjccn',req.user._id, theRestaurant.owner)
         Restaurant.findByIdAndRemove(theRestaurant._id)
         .then((deletedRestaurant) => {
             if (deletedRestaurant === null) {
@@ -143,7 +143,7 @@ console.log('cnjshdcjsdjcbjsbjccnjshdcjsdjcbjsbjccnjshdcjsdjcbjsbjccn',req.user.
 
     })
     .catch((err)=>{
-        console.log(err)
+        // console.log(err)
     })
     
     

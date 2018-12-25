@@ -7,7 +7,7 @@ const Reviews = require("../models/reviewModel");
 router.get('/restaurants/:id/reviewDetails', (req, res, next)=>{
   Reviews.findById(req.params.id)
       .then((theReviews) => {
-        console.log("*****************************", theReviews);
+        // console.log("*****************************", theReviews);
           res.json(theReviews)
       })
       .catch((err) => {
@@ -18,7 +18,7 @@ router.get('/restaurants/:id/reviewDetails', (req, res, next)=>{
 router.post('/restaurants/:id/reviewDetails', (req, res, next)=>{
   Reviews.findByIdAndUpdate(req.params.id, req.body)
       .then((theReviews) => {
-        console.log("*****************************", theReviews);
+        // console.log("*****************************", theReviews);
           res.json(theReviews)
       })
       .catch((err) => {
@@ -34,7 +34,7 @@ router.get('/restaurants/:id/addReview', (req, res, next)=>{
 })
 
 router.post('/restaurants/:id/addReview', (req, res, next)=>{
-  console.log('i hit this crap', req.params, req.body, req.user)
+  // console.log('i hit this crap', req.params, req.body, req.user)
   Reviews.create({
     author: req.user.username,
     rating: req.body.rating,
@@ -43,7 +43,7 @@ router.post('/restaurants/:id/addReview', (req, res, next)=>{
   })
   .then(createdReview => {
 
-    console.log('in here', createdReview)
+    // console.log('in here', createdReview)
     res.json(createdReview)
     /*Restaurant.findById(req.params.id) 
       .then(restaurantFromDB => {
@@ -68,9 +68,9 @@ router.get('/restaurants/:id/edit',isLoggedIn, (req, res, next)=>{
   Reviews.findById(req.params.theIdThing)
   .then((theReview)=>{
     canEdit = false
-      console.log(req.user, theReview )
+      // console.log(req.user, theReview )
     if(String(req.user.username === String(theReview.author))){
-      console.log(req.user, theReview )
+      // console.log(req.user, theReview )
       canEdit = true
      }
    res.json({theReview: theReview, canEdit: canEdit})
